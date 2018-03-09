@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация / Вопросы и ответы{% endblock %}
+
+{% block pagination %}{% endblock %}
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">Регистрация</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="card card-body">
+
+    <div class="alert alert-danger" role="alert">
+  AAAAAAAAAAAAAAAAAAAAA!
+</div>
+
+<form>
+  <div class="form-group row">
+    <label for="inputUsername" class="col-sm-2 col-form-label">Логин</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputUsername" placeholder="Username" aria-describedby="loginHelpBlock" required>
+      <small id="loginHelpBlock" class="text-muted">
+          От 8 до 20 символов.
+        </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputEmail" class="col-sm-2 col-form-label">E-mail</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail" placeholder="mymail@mail.mail" required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Пароль</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" aria-describedby="passwordHelpBlock" required>
+              <small id="passwordHelpBlock" class="text-muted">
+          От 8 до 20 символов.
+        </small>
+    </div>
+  </div>
+
+    <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Повторите пароль</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label for="inputAvatar" class="col-sm-2 col-form-label">Выберите аватар</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control-file" id="inputAvatar">
+        </div>
+    </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </div>
+  </div>
+</form>
+    </div>
+{% endblock %}

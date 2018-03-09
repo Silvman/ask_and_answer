@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}My Question / Вопросы и ответы{% endblock %}
+{% block pagination %}{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Вопросы</a></li>
+    <li class="breadcrumb-item active" aria-current="page">My Question</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="question-list">
+        <div class="question">
+            <div class="question-header">
+                <h1>
+                    <span class="category-picto">
+                      <a href="#"><i class="fa fa-snowflake-o" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-bug" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-magic" aria-hidden="true"></i></a>
+                    </span>
+
+                    <a href="#">My Question</a>
+                </h1>
+                <span class="tags">фырк, кусь, ур</span>
+
+            </div>
+            <hr class="little-line"/>
+
+            <div class="question-content">
+                {{ lorem }}
+            </div>
+            <hr class="little-line"/>
+
+            <div class="question-control">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a href="#">
+                            8 <i class="fa fa-comments-o" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                        31 февраля 2009
+                    </div>
+
+                    <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-2">
+                        <a href="#">
+                            Silvman
+                        </a>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a href="#">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </a>
+                        256
+                        <a href="#">
+                            <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <h2 class="pl-3">Ответы ({{ count }}): </h2>
+
+<br class="clearfix" />
+
+    <div class="comment-list">
+        <div class="comment-wrapper">
+            <div class="comment">
+                <div class="comment-content">
+                    {{ lorem }}
+                </div>
+                <hr class="little-line"/>
+
+                <div class="comment-control">
+                    <div class="row">
+                        <div class="col-md username">
+                            <a href="#">
+                                <img src="/static/orchi.png" class="avatar">Orchideous
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="#">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                Ответить
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                        </div>
+
+
+                        <div class="col-md-3">
+                            31 февраля 2009
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <a href="#">
+                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            </a>
+                            256
+                            <a href="#">
+                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="comment-wrapper">
+                    <div class="comment">
+                        <div class="comment-content">
+                            {{ lorem }}
+                        </div>
+                        <hr class="little-line"/>
+
+                        <div class="comment-control">
+                            <div class="row">
+
+                                <div class="col-md username">
+                            <a href="#">
+                                <img src="/static/myava.jpeg" class="avatar">Silvman
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="#">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                Ответить
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                        </div>
+
+
+                                <div class="col-md-3">
+                                    31 февраля 2009
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <a href="#">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    256
+                                    <a href="#">
+                                        <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <div class="comment-wrapper">
+                    <div class="comment">
+                        <div class="comment-content">
+                            {{ lorem }}
+                        </div>
+                        <hr class="little-line"/>
+
+                        <div class="comment-control">
+                            <div class="row">
+
+                                <div class="col-md username">
+                            <a href="#">
+                                <img src="/static/orchi.png" class="avatar">Orchideous
+                            </a>
+                        </div>
+<div class="col-md-2">
+                            <a href="#">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                Ответить
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                        </div>
+
+
+                                <div class="col-md-3">
+                                    31 февраля 2009
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <a href="#">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    256
+                                    <a href="#">
+                                        <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </div>
+        </div>
+        {% for comment in list_comments %}
+        <div class="comment-wrapper">
+            <div class="comment">
+                <div class="comment-content">
+                    {{ lorem }}
+                </div>
+                <hr class="little-line"/>
+
+                <div class="comment-control">
+                    <div class="row">
+                        <div class="col-md username">
+                            <a href="#">
+                                <img src="/static/orchi.png" class="avatar">Orchideous
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a href="#">
+                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                Ответить
+                            </a>
+                        </div>
+
+                        <div class="col-md-2">
+                        </div>
+
+
+                        <div class="col-md-3">
+                            31 февраля 2009
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <a href="#">
+                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            </a>
+                            256
+                            <a href="#">
+                                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+        <h2><a class="btn btn-primary" data-toggle="collapse" href="#new-answer-form" role="button" aria-expanded="false" aria-controls="new-answer-form">Новый ответ</a></h2>
+        <div class="collapse " id="new-answer-form">
+              <div class="card card-body">
+                <form>
+                    <textarea class="form-control" id="answerText" rows="3"></textarea>
+                    <button class="btn btn-primary mt-2" type="submit">Отправить</button>
+                </form>
+              </div>
+        </div>
+
+    </div>
+{% endblock %}

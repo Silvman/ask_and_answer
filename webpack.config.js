@@ -2,8 +2,6 @@ var path = require('path');
 let webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-let isProduction = process.env.NODE_ENV == 'production';
-
 module.exports = {
 	  entry: {
 		  main: './js/index.js',
@@ -14,6 +12,12 @@ module.exports = {
 		  filename: '[name].bundle.js',
 		  path: path.resolve(__dirname, 'static')
 	  },
+
+    resolve: {
+        modules: [
+          "node_modules"
+        ]
+      },
 
 	  module: {
           loaders: [
@@ -57,12 +61,14 @@ module.exports = {
 		new ExtractTextPlugin({
 			filename: "style.bundle.css"
 		}),
+
 		new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size
         'NODE_ENV': JSON.stringify('production'),
       }
     }),
+/*
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -79,5 +85,6 @@ module.exports = {
       },
       exclude: [/\.min\.js$/gi] // skip pre-minified libs
     }),
+          */
 	]
 };

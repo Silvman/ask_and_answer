@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск по тегу / Вопросы и ответы{% endblock %}
+
+        {% block breadcrumb %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Вопросы</a></li>
+    <li class="breadcrumb-item active" aria-current="page">С тегом "фырк"</li>
+  </ol>
+</nav>
+        {% endblock %}
+
+{% block content %}
+
+    <h2>"Фырк"</h2>
+
+     <div class="question-list">
+    {% for question in list_questions %}
+                 <div class="question">
+                    <div class="question-header">
+                        <h3>
+                    <span class="category-picto">
+                      <a href="#"><i class="fa fa-snowflake-o" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-bug" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-magic" aria-hidden="true"></i></a>
+                    </span>
+
+                            <a href="/question">My Question</a>
+                        </h3>
+                        <span class="tags">фырк, кусь, ур</span>
+
+                    </div>
+                        <hr class="little-line"/>
+
+                    <div class="question-content">
+                        {{ lorem }}
+                    </div>
+                        <hr class="little-line"/>
+
+                    <div class="question-control">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a href="/question">
+                                    8 <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+                            <div class="col-md-3">
+                                31 февраля 2009
+                            </div>
+
+                            <div class="col-md-3">
+                            </div>
+
+                            <div class="col-md-2">
+                                <a href="#">
+                                    <img class="avatar" src="/static/myava.jpeg"/>
+                                    Silvman
+                                </a>
+                            </div>
+
+                            <div class="col-md-2">
+                                <a href="#">
+                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                </a>
+                                256
+                                <a href="#">
+                                    <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+{% endfor %}
+
+            </div>
+
+{% endblock %}
