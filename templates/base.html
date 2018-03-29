@@ -7,78 +7,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-purple fixed-top">
-    <a class="navbar-brand" href="/">Вопросник</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Новые <span class="sr-only">(current)</span></a>
-            </li>
-            {% if is_login %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">Мои
-                    <span class="text-warning">
-                        (5 новых ответов)
-                    </span>
-                </a>
-            </li>
-            {% endif %}
-            <!--
-            <li class="nav-item">
-
-            </li>
-          -->
-        </ul>
-
-        <ul class="navbar-nav">
-            {% if is_login %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    Спросить
-                </a>
-            </li>
-            <li class="nav-item dropdown userblock">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <img class="avatar" src="/static/myava.jpeg"/>
-                    Silvman
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Профиль</a>
-                    <a class="dropdown-item" href="/settings">Настройки</a>
-                    <a class="dropdown-item" href="#">Избранное</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Выход</a>
-                </div>
-            </li>
-
-            <li class="nav-item control">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                </a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="/signup" data-toggle="modal" data-target="#signupModal">
-                    Зарегистрироваться
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login" data-toggle="modal" data-target="#loginModal">
-                    Войти
-                </a>
-            </li>
-
-            {% endif %}
-        </ul>
-    </div>
-</nav>
+{% include 'navbar.html' %}
 
 <main role="main" class="container">
     <div class="search-block row p-4">
@@ -96,123 +25,19 @@
 
     <div class="row">
         <div class="question-list-wrapper col-md-8" id="content">
-
-        <a id="sidebar-switcher" class="" data-toggle="collapse" href="#sidebar-collapsible" role="button" aria-expanded="false" aria-controls="sidebar-collapsible">Убрать сайдбар</a>
-        {% block breadcrumb %}
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">Вопросы</li>
-  </ol>
-</nav>
-        {% endblock %}
-
-
-
-{% block content %}{% endblock %}
-
-        {% block pagination %}
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        {% endblock %}
+            <a id="sidebar-switcher" class="" data-toggle="collapse" href="#sidebar-collapsible" role="button" aria-expanded="false" aria-controls="sidebar-collapsible">Убрать сайдбар</a>
+            {% block breadcrumb %}
+                {% include 'breadcrumb.html' %}
+            {% endblock %}
+            {% block content %}{% endblock %}
+            {% block pagination %}
+                {% include 'pagination.html' %}
+            {% endblock %}
         </div>
 
-        <aside class="col-md-4 aside-wrapper collapse show" id="sidebar-collapsible">
-            <div class="aside-block">
-                <h2>Тэги</h2>
-                <div class="content">
-                    <a href="/tag" class="tag">javascript</a>
-                    <a href="/tag" class="tag">json</a>
-                    <a href="/tag" class="tag">webpack</a>
-                    <a href="/tag" class="tag">npm</a>
-                    <a href="/tag" class="tag">bootstrap</a>
-                    <a href="/tag" class="tag">fontawesome</a>
-                    <a href="/tag" class="tag">stylesheet</a>
-                    <a href="/tag" class="tag">design</a>
-                </div>
-            </div>
-
-            <div class="aside-block">
-                <h2>Мои вопросы</h2>
-                <div class="content">
-                    Нет вопросов
-                </div>
-            </div>
-
-            <div class="aside-block">
-                <h2>Лидеры</h2>
-                <div class="content">
-                    <ul class="leader-list">
-                        <li>
-                            <a href="#">
-                                <img src="/static/orchi.png" class="avatar">
-                                <span class="text">Orhideous</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/myava.jpeg" class="avatar">
-                                <span class="text">Silvman</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/myava.jpeg" class="avatar">
-                                <span class="text">Silvman</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/orchi.png" class="avatar">
-                                <span class="text">Orhideous</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/myava.jpeg" class="avatar">
-                                <span class="text">Silvman</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/orchi.png" class="avatar">
-                                <span class="text">Orhideous</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/myava.jpeg" class="avatar">
-                                <span class="text">Silvman</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/orchi.png" class="avatar">
-                                <span class="text">Orhideous</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="/static/myava.jpeg" class="avatar">
-                                <span class="text">Silvman</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </aside>
+        {% include 'sidebar.html' %}
     </div>
-</main><!-- /.container -->
+</main>
 
 <footer class="page-footer">
     <p>Сделано с любовью by <a href="https://github.com/Silvman">@Silvman</a>.
@@ -224,101 +49,9 @@
 
 
 {% if is_login == 0 %}
-{% block singupModal %}
-<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Регистрация</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form>
-      <div class="modal-body">
-  <div class="form-group row">
-    <label for="inputUsername" class="col-sm-3 col-form-label">Логин</label>
-    <div class="col-sm-9">
-      <input type="text" class="form-control" id="inputUsername" placeholder="Username" aria-describedby="loginHelpBlock" required>
-      <small id="loginHelpBlock" class="text-muted">
-          От 8 до 20 символов.
-        </small>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="inputEmail" class="col-sm-3 col-form-label">E-mail</label>
-    <div class="col-sm-9">
-      <input type="email" class="form-control" id="inputEmail" placeholder="mymail@mail.mail" required>
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label for="inputPassword" class="col-sm-3 col-form-label">Пароль</label>
-    <div class="col-sm-9">
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password" aria-describedby="passwordHelpBlock" required>
-              <small id="passwordHelpBlock" class="text-muted">
-          От 8 до 20 символов.
-        </small>
-    </div>
-  </div>
-
-    <div class="form-group row">
-    <label for="inputPassword" class="col-sm-3 col-form-label">Повторите пароль</label>
-    <div class="col-sm-9">
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-    </div>
-  </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-      </div>
-</form>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
-{% block loginModal %}
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Войти</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-       <form>
-      <div class="modal-body">
-  <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="loginUsername">Логин</label>
-      <div class="col-sm-10 input-group">
-        <input type="text" class="form-control" id="loginUsername" placeholder="Username" required>
-      </div>
-  </div>
-  <div class="form-group row">
-      <label class="col-sm-2 col-form-label" for="loginPassword">Пароль</label>
-      <div class="col-sm-10 input-group">
-        <input type="password" class="form-control" id="loginPassword" required>
-      </div>
-  </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-        <button type="submit" class="btn btn-primary">Войти</button>
-      </div>
-</form>
-    </div>
-  </div>
-</div>
-{% endblock %}
+    {% include 'modals.html' %}
 {% endif %}
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+
 <script src="/static/main.bundle.js"></script>
 </body>
 </html>

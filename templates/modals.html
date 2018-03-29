@@ -1,0 +1,91 @@
+{% block singupModal %}
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Регистрация</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+      <div class="modal-body">
+  <div class="form-group row">
+    <label for="inputUsername" class="col-sm-3 col-form-label">Логин</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="inputUsername" placeholder="Username" aria-describedby="loginHelpBlock" required>
+      <small id="loginHelpBlock" class="text-muted">
+          От 8 до 20 символов.
+        </small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputEmail" class="col-sm-3 col-form-label">E-mail</label>
+    <div class="col-sm-9">
+      <input type="email" class="form-control" id="inputEmail" placeholder="mymail@mail.mail" required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inputPassword" class="col-sm-3 col-form-label">Пароль</label>
+    <div class="col-sm-9">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" aria-describedby="passwordHelpBlock" required>
+              <small id="passwordHelpBlock" class="text-muted">
+          От 8 до 20 символов.
+        </small>
+    </div>
+  </div>
+
+    <div class="form-group row">
+    <label for="inputPassword" class="col-sm-3 col-form-label">Повторите пароль</label>
+    <div class="col-sm-9">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+    </div>
+  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+      </div>
+</form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block loginModal %}
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Войти</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       <form>
+      <div class="modal-body">
+  <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="loginUsername">Логин</label>
+      <div class="col-sm-10 input-group">
+        <input type="text" class="form-control" id="loginUsername" placeholder="Username" required>
+      </div>
+  </div>
+  <div class="form-group row">
+      <label class="col-sm-2 col-form-label" for="loginPassword">Пароль</label>
+      <div class="col-sm-10 input-group">
+        <input type="password" class="form-control" id="loginPassword" required>
+      </div>
+  </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary">Войти</button>
+      </div>
+</form>
+    </div>
+  </div>
+</div>
+{% endblock %}
