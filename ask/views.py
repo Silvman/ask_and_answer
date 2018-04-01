@@ -1,7 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from ask.models import Question, Answer, Tag
+from ask.models import Question, Tag
+
 # Create your views here.
 
 is_logged_in = 0
@@ -16,13 +17,13 @@ def pagination(list_item, page):
     try:
         return paginator.page(page), paginator
     except PageNotAnInteger:
-        raise Http404("Page not an integer")
+        raise Http404("Page number is not an integer")
     except EmptyPage:
         return paginator.page(paginator.num_pages), paginator
 
 
 def index(request, page_num=1):
-    data, paginator = pagination(Question.objects.new().all(), page_num)
+    data, paginator = pagination(Question.objects.new(), page_num)
     context = {
         'view_name': 'question_list',
         'is_login': is_logged_in,
@@ -31,8 +32,9 @@ def index(request, page_num=1):
 
     return render(request, 'index.html', context)
 
+
 def hot(request, page_num=1):
-    data, paginator = pagination(Question.objects.hot().all(), page_num)
+    data, paginator = pagination(Question.objects.hot(), page_num)
     context = {
         'view_name': 'hot_list',
         'is_login': is_logged_in,
@@ -43,12 +45,11 @@ def hot(request, page_num=1):
 
 
 def question(request, question_id=0):
-    list_answers = Answer.objects.all().filter(question_id = question_id)
     current_question = Question.objects.get(pk=question_id)
+    list_answers = current_question.answer_set.all()
     context = {
         'is_login': is_logged_in,
         'list_answers': list_answers,
-        'count': len(list_answers),
         'question': current_question,
     }
     return render(request, 'question.html', context)
@@ -57,7 +58,12 @@ def question(request, question_id=0):
 def ask(request):
     context = {
         'is_login': is_logged_in,
-        'lorem': '''Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore '''
+        'lorem': '''Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+        mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
+        incididunt ut labore et dolore '''
     }
     return render(request, 'ask.html', context)
 
@@ -81,17 +87,17 @@ def tag(request, tag_name="", page_num=1):
         raise Http404("Тэг не может быть пустым")
 
     try:
-        tag = Tag.objects.get(title=tag_name)
+        current_tag = Tag.objects.get(title=tag_name)
     except Tag.DoesNotExist:
         raise Http404("Такого тега не существует")
 
-    list_questions = tag.question_set.all()
+    data, paginator = pagination(current_tag.question_set.all(), page_num)
 
     context = {
         'view_name': "tag_list",
         'tag_name': tag_name,
         'is_login': is_logged_in,
-        'list_questions': list_questions,
+        'list_questions': data,
     }
 
     return render(request, 'tag.html', context)
@@ -102,6 +108,7 @@ def settings(request):
         'is_login': is_logged_in,
     }
     return render(request, 'settings.html', context)
+
 
 def profile(request):
     raise Http404("Under construction")

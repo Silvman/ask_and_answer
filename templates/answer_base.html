@@ -8,7 +8,7 @@
     <div class="comment-control">
       <div class="row">
         <div class="col-md username">
-          <a href="{{ answer.author.getLink }}">
+          <a href="{{ answer.author.get_link }}">
             {% if answer.author.upload.blank %}
               <img class="avatar" src="{{ answer.author.upload.url }}"/>
             {% endif %}
@@ -28,7 +28,7 @@
 
 
         <div class="col-md-3">
-          {{ answer.createDate }}
+          {{ answer.create_date }}
         </div>
 
 

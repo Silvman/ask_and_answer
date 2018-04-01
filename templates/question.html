@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}My Question / Вопросы и ответы{% endblock %}
+{% block title %}{{ question.title }} / Вопросы и ответы{% endblock %}
 {% block pagination %}{% endblock %}
 
 {% block breadcrumb %}
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">Вопросы</a></li>
-      <li class="breadcrumb-item active" aria-current="page">My Question</li>
+      <li class="breadcrumb-item active" aria-current="page">{{ question.title }}</li>
     </ol>
   </nav>
 {% endblock %}
@@ -17,7 +17,7 @@
     {% include 'question_base.html' %}
   </div>
 
-  <h2 class="pl-3">Ответы ({{ count }}): </h2>
+  <h2 class="pl-3">Ответы ({{ list_answers.count }}): </h2>
 
   <br class="clearfix"/>
 

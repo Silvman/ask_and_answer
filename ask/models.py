@@ -10,7 +10,8 @@ class QuestionManager(models.Manager):
         return self.order_by('-rating')
 
     def new(self):
-        return self.order_by('-createDate')
+        return self.order_by('-create_date')
+
 
 class UserManager(models.Manager):
     def get_user(self, login):
@@ -19,9 +20,11 @@ class UserManager(models.Manager):
         except self.DoesNotExist:
             return None
 
+
 class User(AbstractUser):
-    upload = models.ImageField(upload_to='uploads/%Y/%m/%d/', verbose_name=u"Аватар")
-    def getLink(self):
+    avatar = models.ImageField(upload_to='uploads/%Y/%m/%d/', verbose_name=u"Аватар")
+
+    def get_link(self):
         return reverse('profile', args=[self.id])
 
 
@@ -38,32 +41,32 @@ class Question(models.Model):
     title = models.CharField(max_length=120, verbose_name=u"Заголовок вопроса")
     text = models.TextField(verbose_name=u"Полное описание вопроса")
 
-    createDate = models.DateTimeField(default=datetime.now, verbose_name=u"Дата создания вопроса")
-    isActive = models.BooleanField(default=True, verbose_name=u"Доступность вопроса")
+    create_date = models.DateTimeField(default=datetime.now, verbose_name=u"Дата создания вопроса")
+    is_active = models.BooleanField(default=True, verbose_name=u"Доступность вопроса")
     rating = models.IntegerField(default=0)
 
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Тэги")
     objects = QuestionManager()
-    numAnswers = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ['-createDate']
+        ordering = ['-create_date']
 
 
 class Answer(models.Model):
     author = models.ForeignKey(User, models.SET_NULL, null=True, verbose_name=u"Автор ответа")
     question = models.ForeignKey(Question, models.SET_NULL, null=True, verbose_name=u"Ответ на вопрос")
-    createDate = models.DateTimeField(default=datetime.now, verbose_name=u"Дата создания вопроса")
+    create_date = models.DateTimeField(default=datetime.now, verbose_name=u"Дата создания вопроса")
+    is_correct = models.BooleanField(default=False)
 
     text = models.TextField(verbose_name=u"Текст ответа")
 
 
 class Like(models.Model):
     author = models.ForeignKey(User, models.SET_NULL, null=True, verbose_name="Кто лайкнул")
-    isLike = models.BooleanField(default=True, verbose_name=u"Является ли лайком")  # значение по умолчанию мб?
+    is_like = models.BooleanField(default=True, verbose_name=u"Является ли лайком")  # значение по умолчанию мб?
 
 
 class AnswerLike(Like):
@@ -72,6 +75,5 @@ class AnswerLike(Like):
 
 class QuestionLike(Like):
     question = models.ForeignKey(Question, models.SET_NULL, null=True, verbose_name=u"Вопрос")
-
 
 # Create your models here.
