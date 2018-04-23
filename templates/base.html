@@ -1,9 +1,11 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>{% block title %}Неизвестная страница{% endblock %}</title>
-    <link href="/static/style.bundle.css" rel="stylesheet"/>
+    <link href="{% static 'style.bundle.css' %}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -52,6 +54,7 @@
     {% include 'modals.html' %}
 {% endif %}
 
-<script src="/static/main.bundle.js"></script>
+<script src="{% static 'main.bundle.js' %}"></script>
+<script src="{% static 'style.bundle.js' %}"></script>
 </body>
 </html>

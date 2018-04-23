@@ -22,7 +22,7 @@ class UserManager(models.Manager):
 
 
 class User(AbstractUser):
-    avatar = models.ImageField(upload_to='uploads/%Y/%m/%d/', verbose_name=u"Аватар")
+    avatar = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True, verbose_name=u"Аватар")
 
     def get_link(self):
         return reverse('profile', args=[self.id])
@@ -48,6 +48,8 @@ class Question(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="Тэги")
     objects = QuestionManager()
 
+    count_likes = models.IntegerField(default=0)
+
     def __str__(self):
         return self.title
 
@@ -67,13 +69,17 @@ class Answer(models.Model):
 class Like(models.Model):
     author = models.ForeignKey(User, models.SET_NULL, null=True, verbose_name="Кто лайкнул")
     is_like = models.BooleanField(default=True, verbose_name=u"Является ли лайком")  # значение по умолчанию мб?
-
-
-class AnswerLike(Like):
-    answer = models.ForeignKey(Answer, models.SET_NULL, null=True, verbose_name=u"Ответ")
-
-
-class QuestionLike(Like):
     question = models.ForeignKey(Question, models.SET_NULL, null=True, verbose_name=u"Вопрос")
+
+    class Meta:
+        unique_together = (('author', 'question'),)  # гарантирует только один лайк от одного юзера
+
+#
+# class AnswerLike(Like):
+#
+#
+# class QuestionLike(Like):
+#     class Meta:
+#         unique_together = (('author', 'question'),)  # гарантирует только один лайк от одного юзера
 
 # Create your models here.

@@ -1,11 +1,14 @@
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, JsonResponse
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from ask.models import Question, Tag
+from django.views.decorators.http import require_POST
+
+from ask.models import Question, Tag, User, Like
+from ask.forms import UserForm, QuestionAdd
 
 # Create your views here.
 
-is_logged_in = 0
+is_logged_in = 1
 
 
 # def paginate(objects_list, request):
@@ -55,29 +58,36 @@ def question(request, question_id=0):
     return render(request, 'question.html', context)
 
 
-def ask(request):
-    context = {
-        'is_login': is_logged_in,
-        'lorem': '''Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
-        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-        mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
-        incididunt ut labore et dolore '''
-    }
-    return render(request, 'ask.html', context)
-
-
 def login(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('signup_page', pk=post.pk)
+    else:
+        form = UserForm()
+
     context = {
         'is_login': is_logged_in,
+        'form': form,
     }
     return render(request, 'login.html', context)
 
 
 def signup(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            # post = form.save(commit=False)
+            # post.save()
+            return redirect('login_page')
+    else:
+        form = UserForm()
+
     context = {
         'is_login': is_logged_in,
+        'form': form,
     }
     return render(request, 'signup.html', context)
 
@@ -112,3 +122,47 @@ def settings(request):
 
 def profile(request):
     raise Http404("Under construction")
+
+
+def add_question(request):
+    if request.method == "POST":
+        form = QuestionAdd(request.POST)
+        if form.is_valid():  # плохой, потмоу что появляется cleaned_data - неявно меняет состояние элемента
+            q = form.save(commit=None)
+            form.save()
+            return redirect('question', q.pk)
+
+    else:
+        form = QuestionAdd()  # unbound form
+
+    context = {
+        'is_login': is_logged_in,
+        'form': form,
+    }
+    return render(request, 'ask.html', context)
+
+@require_POST
+def like(request):
+    try:
+        question_id = int(request.POST.get('question_id'))
+    except ValueError: # int() кидает Value Error
+        return JsonResponse({'status': 'error'})
+
+    author = User.objects.first()
+
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        return JsonResponse({'status': 'error'})
+
+    kwargs = {"author": author, "question": question}
+    like_qs = Like.objects.filter(**kwargs)
+    if like_qs.exists():
+        like_qs.delete()
+    else:
+        Like.objects.create(**kwargs)
+
+    question.count_likes = question.like_set.count()
+    question.save()
+
+    return JsonResponse({'status': 'ok', 'count': question.count_likes})

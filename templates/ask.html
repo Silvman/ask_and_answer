@@ -14,7 +14,9 @@
 
 {% block content %}
     <div class="card card-body">
-<form>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
   <div class="form-group row">
     <label for="inputEntry" class="col-sm-2 col-form-label">Заголовок</label>
     <div class="col-sm-10">

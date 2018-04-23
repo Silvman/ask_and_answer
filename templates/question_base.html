@@ -40,17 +40,17 @@
             <div class="col-md-2">
                 <a href="#">
                   {% if question.author.upload.blank %}
-                    <img class="avatar" src="{{ question.author.avatar.url }}"/>
+                    <img class="avatar" src="/media/{{ question.author.avatar.url }}"/>
                   {% endif %}
-                  {{ qustion.author.username }}
+                  {{ question.author.username }}
                 </a>
             </div>
 
             <div class="col-md-2">
-                <a href="#">
+                <a href="#" class="js-article-like" data-id="{{ question.id }}">
                     <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                 </a>
-                {{ question.rating }}
+              <span id="article-count-id-{{ question.id }}">{{ question.count_likes }}</span>
                 <a href="#">
                     <i class="fa fa-minus-square-o" aria-hidden="true"></i>
                 </a>
