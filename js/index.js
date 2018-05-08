@@ -39,6 +39,7 @@ $('.js-article-like').on('click', function () {
     let csrftoken = getCookie('csrftoken');
     let question_id = btn.data('id');
 
+    // через промисы
     $.ajax({
         method: "POST",
         url: "/like/",
@@ -50,7 +51,24 @@ $('.js-article-like').on('click', function () {
     }).done(function (data) {
       $('#article-count-id-' + question_id).text(data.count)
     });
+    // еще есть: success(f(d) {}), error(f() {})
 
+    /*
+    в JSON'ы правильный подход - добавлять "status"
+     */
 
     return false;
 });
+
+
+// по-старому
+// let xhr = new XMLHttpRequest();
+// xhr.open('POST', '/xhr/test.html', true);   // блокирующий
+// xhr.onreadystatechange = function () {      // callback
+//     if (xhr.readyState === 4) {             // успешно выполнен
+//         if(xhr.status === 200) {
+//             alert(xhr.responseText);
+//         }
+//     }
+// };
+// xhr.send("a=5");                            // urlencoded

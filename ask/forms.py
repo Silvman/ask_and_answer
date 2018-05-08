@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from ask.models import User, Question
+from ask.models import *
 
 
 class UserForm(forms.ModelForm):
@@ -36,7 +36,24 @@ class UserForm(forms.ModelForm):
         fields = ('username', 'password')
 
 
-class QuestionAdd(forms.ModelForm):
+class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ('author', 'title', 'text')  # явно прописываем все?
+
+
+# class AnswerForm(forms.ModelForm):
+#     class Meta:
+#         model = Answer
+#         fields = ('author', 'title', 'text')  # явно прописываем все?
+#
+#
+# class SignUpForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#
+#
+# class SignInForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#

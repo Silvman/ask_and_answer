@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.http import require_POST
 
 from ask.models import Question, Tag, User, Like
-from ask.forms import UserForm, QuestionAdd
+from ask.forms import UserForm, QuestionForm
 
 # Create your views here.
 
@@ -26,12 +26,30 @@ def pagination(list_item, page):
 
 
 def index(request, page_num=1):
+    # лекция про авторизацию
+
+    # https для передачи данных в открыто видел
+    # # хеши с солью
+    # # капча
+    #
+    # # атаки пытаются украсть куки : сложный ключ сесии, привязать к IP, ограничить сессию по времени, HttpOnly, запрос пароля при критических действиях
+    #
+    # user = request.user # определено всегда
+    # if user.is_authenticated():
+    #     pass
+    # else:
+    #     pass
+    # ###
+
+
     data, paginator = pagination(Question.objects.new(), page_num)
     context = {
         'view_name': 'question_list',
         'is_login': is_logged_in,
         'list_questions': data,
     }
+
+
 
     return render(request, 'index.html', context)
 
@@ -126,14 +144,14 @@ def profile(request):
 
 def add_question(request):
     if request.method == "POST":
-        form = QuestionAdd(request.POST)
+        form = QuestionForm(request.POST)
         if form.is_valid():  # плохой, потмоу что появляется cleaned_data - неявно меняет состояние элемента
             q = form.save(commit=None)
             form.save()
             return redirect('question', q.pk)
 
     else:
-        form = QuestionAdd()  # unbound form
+        form = QuestionForm()  # unbound form
 
     context = {
         'is_login': is_logged_in,
@@ -155,6 +173,9 @@ def like(request):
     except Question.DoesNotExist:
         return JsonResponse({'status': 'error'})
 
+    # HttpResponseAjax(comment_id=id)
+    # HttpResponseAjaxErrir(code="bad", message=form_errors.as_text)
+
     kwargs = {"author": author, "question": question}
     like_qs = Like.objects.filter(**kwargs)
     if like_qs.exists():
@@ -166,3 +187,20 @@ def like(request):
     question.save()
 
     return JsonResponse({'status': 'ok', 'count': question.count_likes})
+
+
+# request.is_ajax() - узнать, передается ли по аяксу
+
+# пишем свой декоратор для корректной обработки неавторищованности, позволяет вернуть json в нужном случае, в отличии от login_required, который редиректит
+# def login_req_ajax(view):
+#     def
+
+# CORS (нужно указывать origin, чтобы обработчик аякса вызвался)
+# Allow Origins
+# Allow Credentials
+# BP:
+# не ставить * в ответе, а проверить домен по списку двоеренных
+
+#comet: nginx + push-stream-module
+
+# эш низкоурованенный!
