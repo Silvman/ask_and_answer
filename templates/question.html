@@ -4,37 +4,45 @@
 {% block pagination %}{% endblock %}
 
 {% block breadcrumb %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Вопросы</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{ question.title }}</li>
-    </ol>
-  </nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Вопросы</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ question.title }}</li>
+        </ol>
+    </nav>
 {% endblock %}
 
 {% block content %}
-  <div class="question-list">
-    {% include 'question_base.html' %}
-  </div>
-
-  <h2 class="pl-3">Ответы ({{ list_answers.count }}): </h2>
-
-  <br class="clearfix"/>
-
-  <div class="comment-list">
-    {% for answer in list_answers %}
-      {% include 'answer_base.html' %}
-    {% endfor %}
-    <h2><a class="btn btn-primary" data-toggle="collapse" href="#new-answer-form" role="button" aria-expanded="false"
-           aria-controls="new-answer-form">Новый ответ</a></h2>
-    <div class="collapse " id="new-answer-form">
-      <div class="card card-body">
-        <form>
-          <textarea class="form-control" id="answerText" rows="3"></textarea>
-          <button class="btn btn-primary mt-2" type="submit">Отправить</button>
-        </form>
-      </div>
+    <div class="question-list">
+        {% include 'question_base.html' %}
     </div>
 
-  </div>
+    <h2 class="pl-3">Ответы ({{ list_answers.count }}): </h2>
+
+    <br class="clearfix"/>
+
+    <div class="comment-list">
+        {% for answer in list_answers %}
+            {% include 'answer_base.html' %}
+        {% endfor %}
+
+
+        {% if request.user.is_authenticated %}
+        <h2><a class="btn btn-primary" data-toggle="collapse" href="#new-answer-form" role="button"
+               aria-expanded="false"
+               aria-controls="new-answer-form">Новый ответ</a></h2>
+        <div class="collapse " id="new-answer-form">
+            <div class="card card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {{ field }}
+                    {% endfor %}
+                    <button class="btn btn-primary mt-2" type="submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
 {% endblock %}

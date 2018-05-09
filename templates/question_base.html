@@ -7,11 +7,11 @@
                       <a href="#"><i class="fa fa-magic" aria-hidden="true"></i></a>
                     </span>
 
-            <a href="{% url 'question' question.id  %}">{{ question.title }}</a>
+            <a href="{% url 'question_page' %}?id={{ question.id }}">{{ question.title }}</a>
         </h3>
         <span class="tags">
           {% for tag in question.tags.all %}
-              <a href="{% url 'tag' tag.title %}">{{ tag.title }}</a>
+              <a href="{% url 'tag_page' tag.title %}">{{ tag.title }}</a>
           {% endfor %}
         </span>
     </div>
@@ -25,7 +25,7 @@
     <div class="question-control">
         <div class="row">
             <div class="col-md-2">
-                <a href="{% url 'question' question.id  %}">
+                <a href="{% url 'question_page' %}?id={{ question.id }}">
                     {{ question.answer_set.count }} <i class="fa fa-comments-o" aria-hidden="true"></i>
                 </a>
             </div>
@@ -39,9 +39,10 @@
 
             <div class="col-md-2">
                 <a href="#">
-                  {% if question.author.upload.blank %}
+                  {% if question.author.avatar %}
                     <img class="avatar" src="/media/{{ question.author.avatar.url }}"/>
                   {% endif %}
+
                   {{ question.author.username }}
                 </a>
             </div>

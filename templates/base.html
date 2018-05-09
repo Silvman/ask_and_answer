@@ -11,7 +11,13 @@
 <body>
 {% include 'navbar.html' %}
 
-<main role="main" class="container">
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+
+    <div class="col-md-8">
+        <main role="main" class="container">
     <div class="search-block row p-4">
         <div class="col-md-12">
             <form class="form-row">
@@ -26,8 +32,8 @@
     </div>
 
     <div class="row">
-        <div class="question-list-wrapper col-md-8" id="content">
-            <a id="sidebar-switcher" class="" data-toggle="collapse" href="#sidebar-collapsible" role="button" aria-expanded="false" aria-controls="sidebar-collapsible">Убрать сайдбар</a>
+        <div class="question-list-wrapper col-md-12" id="content">
+{#            <a id="sidebar-switcher" class="" data-toggle="collapse" href="#sidebar-collapsible" role="button" aria-expanded="false" aria-controls="sidebar-collapsible">Убрать сайдбар</a>#}
             {% block breadcrumb %}
                 {% include 'breadcrumb.html' %}
             {% endblock %}
@@ -37,9 +43,17 @@
             {% endblock %}
         </div>
 
-        {% include 'sidebar.html' %}
     </div>
 </main>
+    </div>
+
+    <div class="col-md-2">
+        {% include 'sidebar.html' %}
+    </div>
+</div>
+
+
+
 
 <footer class="page-footer">
     <p>Сделано с любовью by <a href="https://github.com/Silvman">@Silvman</a>.

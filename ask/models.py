@@ -7,11 +7,13 @@ from django.urls import reverse
 
 class QuestionManager(models.Manager):
     def hot(self):
-        return self.order_by('-rating')
+        return self.order_by('-count_likes')
 
     def new(self):
         return self.order_by('-create_date')
 
+    def of_user(self, username):
+        return self.get(answer__author=username)
 
 class UserManager(models.Manager):
     def get_user(self, login):
@@ -20,12 +22,13 @@ class UserManager(models.Manager):
         except self.DoesNotExist:
             return None
 
+# TODO нужен менеджер для тэгов и лайков
 
 class User(AbstractUser):
     avatar = models.ImageField(upload_to='uploads/%Y/%m/%d/', blank=True, null=True, verbose_name=u"Аватар")
 
     def get_link(self):
-        return reverse('profile', args=[self.id])
+        return reverse('profile_page') + '?id=' + str(self.pk)
 
 
 class Tag(models.Model):
