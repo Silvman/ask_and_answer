@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация / Вопросы и ответы{% endblock %}
+
+{% block pagination %}{% endblock %}
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">Регистрация</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="card card-body">
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    <div class="form-group row">
+                        {{ field.errors }}
+                        <label for="{{ field.id_for_label }}"
+                               class="col-sm-3 col-form-label">{{ field.label }}</label>
+                        <div class="col-sm-9">
+                            {{ field }}
+                        </div>
+                        {% if field.help_text %}
+                            <small id="loginHelpBlock" class="text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

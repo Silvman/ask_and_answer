@@ -1,0 +1,83 @@
+{% block singupModal %}
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Регистрация</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for field in form_login %}
+                            {% if field.is_hidden %}
+                                {{ field }}
+                            {% else %}
+                                <div class="form-group row">
+                                    {{ field.errors }}
+                                    <label for="{{ field.id_for_label }}"
+                                           class="col-sm-3 col-form-label">{{ field.label }}</label>
+                                    <div class="col-sm-9">
+                                        {{ field }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <small id="loginHelpBlock" class="text-muted">{{ field.help_text|safe }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block loginModal %}
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Войти</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% for field in form_login %}
+                            {% if field.is_hidden %}
+                                {{ field }}
+                            {% else %}
+                                <div class="form-group row">
+                                    {{ field.errors }}
+                                    <label for="{{ field.id_for_label }}"
+                                           class="col-sm-3 col-form-label">{{ field.label }}</label>
+                                    <div class="col-sm-9">
+                                        {{ field }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <small id="loginHelpBlock" class="text-muted">{{ field.help_text|safe }}</small>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

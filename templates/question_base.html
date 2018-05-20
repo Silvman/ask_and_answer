@@ -1,0 +1,62 @@
+<div class="question">
+    <div class="question-header">
+        <h3>
+                    <span class="category-picto">
+                      <a href="#"><i class="fa fa-snowflake-o" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-bug" aria-hidden="true"></i></a>
+                      <a href="#"><i class="fa fa-magic" aria-hidden="true"></i></a>
+                    </span>
+
+            <a href="{% url 'question_page' %}?id={{ question.id }}">{{ question.title }}</a>
+        </h3>
+        <span class="tags">
+          {% for tag in question.tags.all %}
+              <a href="{% url 'tag_page' tag.title %}">{{ tag.title }}</a>
+          {% endfor %}
+        </span>
+    </div>
+    <hr class="little-line"/>
+
+    <div class="question-content">
+        {{ question.text }}
+    </div>
+    <hr class="little-line"/>
+
+    <div class="question-control">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{% url 'question_page' %}?id={{ question.id }}">
+                    {{ question.answer_set.count }} <i class="fa fa-comments-o" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                {{ question.create_date }}
+            </div>
+
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-2">
+                <a href="#">
+                  {% if question.author.avatar %}
+                    <img class="avatar" src="/media/{{ question.author.avatar.url }}"/>
+                  {% endif %}
+
+                  {{ question.author.username }}
+                </a>
+            </div>
+
+            <div class="col-md-2">
+                <a href="#" class="js-article-like" data-id="{{ question.id }}">
+                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                </a>
+              <span id="article-count-id-{{ question.id }}">{{ question.count_likes }}</span>
+                <a href="#">
+                    <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
