@@ -1,7 +1,0 @@
-nginx, аналог - kproxy?
-
-в wsgi скрипте - работа с environ
-hardlink уничтожается вместе с
-
-
-gunicorn unix socket
